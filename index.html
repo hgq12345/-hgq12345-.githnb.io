@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>坦克大战 · HGQ 浪尖社区版</title>
+<style>
+  :root{
+    --bg:#eef1f5; --card:#ffffff; --ink:#22262e; --sub:#5b6472;
+    --accent:#d98014; --line:#dfe3ea;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;
+    min-height:100vh; display:flex; align-items:center; justify-content:center; padding:16px;
+  }
+  #wrap{ display:flex; gap:16px; align-items:stretch; flex-wrap:wrap; justify-content:center; }
+  #stage{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:10px; box-shadow:0 6px 24px rgba(30,40,60,.08);
+  }
+  canvas#game{
+    display:block; border-radius:8px; background:#0d141b;
+    max-width:100%; height:auto; image-rendering:auto;
+  }
+  #hud{
+    width:230px; background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:16px; box-shadow:0 6px 24px rgba(30,40,60,.08);
+    display:flex; flex-direction:column; gap:10px;
+  }
+  #hud h1{ font-size:20px; letter-spacing:2px; }
+  #hud h1 span{ color:var(--accent); }
+  .stats{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .stat{
+    background:#f6f8fb; border:1px solid var(--line); border-radius:8px;
+    padding:8px 10px; font-size:12px; color:var(--sub);
+  }
+  .stat b{ display:block; font-size:20px; color:var(--ink); margin-top:2px; }
+  #enemyIcons{ display:flex; flex-wrap:wrap; gap:4px; min-height:14px; }
+  #enemyIcons i{
+    width:12px; height:12px; border-radius:3px; background:#8f98a3; display:block;
+    box-shadow:inset 0 -3px 0 rgba(0,0,0,.18);
+  }
+  .help{
+    font-size:12px; color:var(--sub); line-height:1.9;
+    background:#f6f8fb; border:1px solid var(--line); border-radius:8px; padding:10px;
+  }
+  .help kbd{
+    background:#fff; border:1px solid #c9d0da; border-bottom-width:2px; border-radius:4px;
+    padding:0 5px; font-size:11px; color:var(--ink); font-family:inherit;
+  }
+  .btn{
+    display:block; text-align:center; cursor:pointer; user-select:none;
+    background:var(--accent); color:#fff; border:none; border-radius:8px;
+    padding:9px 10px; font-size:13px; font-family:inherit;
+  }
+  .btn:hover{ filter:brightness(1.08); }
+  .btn.ghost{ background:#f0f3f7; color:var(--ink); border:1px solid var(--line); }
+  .tag{ font-size:11px; color:var(--sub); text-align:center; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="stage"><canvas id="game" width="624" height="624"></canvas></div>
+  <aside id="hud">
+    <h1>坦克大战 <span>HGQ</span></h1>
+    <div class="stats">
+      <div class="stat">关卡<b id="hLevel">1</b></div>
+      <div class="stat">得分<b id="hScore">0</b></div>
+      <div class="stat">生命<b id="hLives">3</b></div>
+      <div class="stat">剩余敌军<b id="hEnemy">0</b></div>
+    </div>
+    <div id="enemyIcons"></div>
+    <div class="help">
+      <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / 方向键 — 移动<br>
+      <kbd>空格</kbd> / <kbd>J</kbd> — 发射炮弹<br>
+      <kbd>P</kbd> — 暂停 &nbsp; <kbd>R</kbd> — 重新开始<br>
+      目标：消灭全部敌军，保卫基地 ⭐<br>
+      中央砖墙拼成 <b style="color:var(--accent)">H G Q</b>，可被击碎
+    </div>
+    <label class="btn ghost">上传自定义底图 (jpg/png)<input type="file" id="bgFile" accept="image/*" hidden></label>
+    <button class="btn" id="btnRestart">重新开始 (R)</button>
+    <div class="tag">浪尖社区 · 底图支持自定义</div>
+  </aside>
+</div>
+<script src="game.js"></script>
+</body>
+</html>
